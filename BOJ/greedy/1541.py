@@ -4,42 +4,22 @@
 #홀수번 째 -에는 뒤에 '('를, 짝수번 째 -에는 앞에 ')'를 삽입한다.(문자열 슬라이싱 이용)
 # -가 홀수 개인경우 끝나지 않으므로 이 경우 마지막에 ')'를 삽입한다.
 #'00009'같은 경우를 처리해야한다. 따라서 eval()함수를 사용하지 못하고, 반복문으로 계산해야할 것 같다.
-s = input()
-length = len(s)
-chk = 1
-ptr = 0
-for i in range(len(s)):
 
-  if s[ptr] == '-':
-    if chk % 2 != 0:
-      s = s[:ptr+1] + '(' + s[ptr+1 :]
-      ptr += 1
-      i += 1
-      chk = 0
-    else:
-      s = s[:ptr] + ')' + s[ptr :]
-      chk = 1
-  ptr += 1
+#피드백
+#우선 아이디어인 -를 만나면 다음 -가 나올 때 까지 괄호를 치는 것은 정답. 하지만 구현의 실패로 파이썬 기능 공부가 더 필요함
+#split()을 사용하면 그 문자를 기준으로 분리하여 리스트 생성(그 문자는 포함하지 않음 단순히 구분자)
+#아이디어를 좀 더 보완하면 -를 기준으로 분리한 리스트를 전부 int로 형변환 후 다 빼기 연산을 함(처음 값은 더해줌)
 
-if chk == 0:
-  s = s[:len(s)] + ')'
 
-#맨 처음이나 부호 뒤가 0인경우 0000x의 경우이기에 이 경우 + 0 뒤에 붙여준다.
-t = False
-if s[0] == '0':
-  t = True  
-new_s = ""
 
-for i in range(len(s)):
-    if not t:
-        if s[i] in {'-', '+', '(', ')'} and i < len(s) - 1 and s[i + 1] == '0':
-            t = True
-    else:
-        if s[i] in {'-', '+', '(', ')'}:
-            new_s += '+0'
-            t = False
+n = str(input())
+m = n.split('-')
+answer = 0
 
-    if i < len(s):
-        new_s += s[i]
+x = sum(map(int, m[0].split('+')))
+answer += x
 
-print(eval(new_s))
+for x in m[1:]:
+  x = sum(map(int, x.split('+')))
+  answer -= x
+print(answer)
