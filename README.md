@@ -1,1 +1,1 @@
-# 2cote
+# study algorithm!!
