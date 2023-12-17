@@ -18,8 +18,6 @@ def dfs(x, y):
         graph[ny][nx] = 0
         dfs(nx, ny)
 
-
-
 t = int(input())
 for _ in range(t):
   m, n, k = map(int, input().split())
