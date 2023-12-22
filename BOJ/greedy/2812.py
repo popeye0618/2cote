@@ -6,73 +6,26 @@
 #반례의 경우 총 지운 숫자의 개수가 k가 안될경우, 뒤에서부터 남은 k만큼 지운다.
 #그리고 결국 자리수는 정해져있으므로, 처음 자리수 정하기 전까지는 다 지운다.
 
+#피드백
+#그리디 문제임을 다시 한번 생각하고, 그리디스럽게 풀어야 한다는 것을 느낀 문제이다.
+#자꾸 문제를 풀다가 꼬이면 케이스를 추가하는데, 더 많이 생각해보고 다시 시도하는 것이 좋을 것 같다.
+#문제 해결 아이디어는 스택을 사용해서 현재의 수와 스택의 수를 비교해 스택안의 수가 작으면 빼주는 동작을 반복해준다.
+#k번 pop을 했다면 성공이며, 반복문을 다 돌았는데 t == k가 아닌 경우 뒤에서부터 k - t번 pop해준다.
+#이 아이디어의 정당성은 자리가 바뀌는 것이 아니므로, 현재의 수와 과거의 수들을 비교해서 pop하는 것을 반복하면 가장 큰 수가 나온다.
+
+#마지막에 k가 0보다 크면 k만큼 pop해주는데 차라리 초기 k를 따로 저장해서 슬라이싱으로 0부터 n - k만큼만 잘라서 출력하는게 더 빠를 것 같다.
+
 n, k = map(int, input().split())
 num = input()
 
-ans = []
-same = 0
-flag = -1
-delete = 0
-
-for i in range(len(num) - 1):
-  now = int(num[i])
-  next = int(num[i + 1])
-
-  if delete == k:
-    break
-  if now > next:
-    if same > 0:
-      for _ in range(same):
-        ans.append(now)
-    delete += i - (flag + 1) - same
-    flag = i
-    ans.append(now)
-  elif now == next:
-    same += 1
-  else:
-    if same > 0:
-      same = 0
-
-rest = list(map(int, num[flag + 1 :]))
-print(ans, rest, delete)
-
-if not ans:
-  rest.reverse()
+stack = []
+for i in range(n):
+  while (k > 0 and stack and stack[-1] < num[i]):
+    stack.pop()
+    k -= 1
+  stack.append(num[i])
+if k > 0:
   for _ in range(k):
-    rest.pop()
-  rest.reverse()
-  ans += rest
+    stack.pop()
   
-else:
-  if len(ans) > n - k:
-    for _ in range(len(ans) - (n - k)):
-      ans.pop()
-  elif len(ans) == n - k:
-    cnt = 0
-    arr = []
-    for i in range(len(ans) - 1):
-      if cnt < len(rest) and ans[i] < ans[i + 1]:
-          arr.append(i)
-          cnt += 1
-    for i in arr:
-      ans.pop(i)
-    for i in range(cnt):
-      ans.append(rest[i])
-  else:
-    cnt = 0
-    arr = []
-    for i in range(len(ans) - 1):
-      if cnt < len(rest) and ans[i] < ans[i + 1]:
-          arr.append(i)
-          cnt += 1
-    for i in arr:
-      ans.pop(i)
-    for _ in range(cnt):
-      ans.append(rest[0])
-      rest.pop(0)
-      
-    t = len(rest) - ((n - k) - len(ans))
-    for i in range(t, len(rest)):
-      ans.append(rest[i])
-    
-print(''.join(map(str, ans)))
+print(''.join(map(str,stack)))
