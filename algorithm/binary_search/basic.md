@@ -55,6 +55,7 @@ def binary_search(array, target, start, end):
   return None
 
 파이썬 이진 탐색 라이브러리
+from bisect import bisect_left, bisect_right
 bisect_left(a, x) : 정렬 된 순서를 유지하면서 배열 a에 x를 삽입할 가장 왼쪽 인덱스를 반환
 bisect_right(a, x) : 정렬 된 순서를 유지하면서 배열 a에 x를 삽입할 가장 오른쪽 인덱스를 반환
 
