@@ -1,7 +1,7 @@
 modules = ["python-3.10:v18-20230807-322e88b"]
 
 hidden = [".pythonlibs"]
-run = "python3 BOJ/binary_search/2792.py"
+run = "python3 BOJ/binary_search/2470.py"
 
 [nix]
 channel = "stable-23_05"
