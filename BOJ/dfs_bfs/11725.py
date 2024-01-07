@@ -27,6 +27,5 @@ for _ in range(n - 1):
 visited = [False] * (n + 1)
 answer = [0] * (n + 1)
 bfs()
-
 for x in answer[2:]:
   print(x)
