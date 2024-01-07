@@ -11,7 +11,6 @@
 #이중 for문이 아닌 새로운 알고리즘을 사용해야했다.
 #바로 union-find 알고리즘이다.
 
-
 # g = int(input())
 # p = int(input())
 # plane = [0]
@@ -41,10 +40,12 @@
 #피드백 (유니온-파인드 알고리즘 사용)
 #경로 압축까지 사용
 
+
 def find_parent(gate, x):
   if gate[x] != x:
     gate[x] = find_parent(gate, gate[x])
   return gate[x]
+
 
 g = int(input())
 p = int(input())
